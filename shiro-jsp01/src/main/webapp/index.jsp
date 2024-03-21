@@ -14,15 +14,44 @@
 <label>
     <a href="${pageContext.request.contextPath}/user/logout">退出登录</a>
 </label>
-<div>
-    <button onclick="handleClick()">批量导入</button>
-</div>
-<ul>
-    <li>用户管理</li>
-    <li>商品管理</li>
-    <li>订单管理</li>
-    <li>物流管理</li>
-</ul>
+<%--获取当前登录的用户名--%>
+<shiro:authenticated>
+    <%--填写的是放在认证，SimpleAuthenticationInfo中的user数据--%>
+    <h3>
+        当前登录用户是：<shiro:principal property="username"/>
+    </h3>
+    <div>
+        <button onclick="handleClick()">批量导入</button>
+    </div>
+</shiro:authenticated>
+<shiro:hasAnyRoles name="user,admin">
+    <li><a href="">用户管理(满足user/admin权限)</a>
+        <ul>
+            <shiro:hasPermission name="user:add:*">
+                <li><a href="">添加</a></li>
+            </shiro:hasPermission>
+            <shiro:hasPermission name="user:delete:*">
+                <li><a href="">删除</a></li>
+            </shiro:hasPermission>
+            <shiro:hasPermission name="user:update:*">
+                <li><a href="">修改</a></li>
+            </shiro:hasPermission>
+            <shiro:hasPermission name="order:find:01">
+                <li><a href="">查询</a></li>
+            </shiro:hasPermission>
+        </ul>
+    </li>
+</shiro:hasAnyRoles>
+<hr>
+
+<shiro:hasRole name="admin">
+<li><a href="">用户管理(满足admin权限)</a>
+    <ul>
+        <li><a href="">商品管理</a></li>
+        <li><a href="">订单管理</a></li>
+        <li><a href="">物流管理</a></li>
+    </ul>
+    </shiro:hasRole>
 </body>
 <script>
     function handleClick() {

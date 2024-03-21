@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shirojsp01.mapper.PermsMapper">
+    <select id="findPermsByRoleIds" resultType="com.example.shirojsp01.model.Perms">
+        SELECT
+            tp.id,
+            tp.name
+        FROM
+            t_role tr
+        LEFT JOIN t_role_perms trp
+        ON tr.id = trp.roleid
+        LEFT JOIN t_pers tp
+        ON tp.id = trp.permsid
+        WHERE
+            tr.id in
+        <foreach collection="roleIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

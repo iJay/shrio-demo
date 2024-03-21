@@ -60,8 +60,8 @@ public class UserController {
         return "redirect:/register.jsp";
     }
 
-    // @RequiresPermissions("user:findByName:01")
-    @RequiresRoles("user")
+    // @RequiresRoles("user")
+    @RequiresPermissions("order:import:01")
     @ResponseBody
     @GetMapping("/import")
     public String findByUsername() {
