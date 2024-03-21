@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shirojsp01.mapper.UserMapper">
+    <insert id="save" parameterType="com.example.shirojsp01.model.User">
+        INSERT INTO shiro.t_user (username, password, salt) VALUES (#{username}, #{password}, #{salt})
+    </insert>
+    <select id="findByUsername" resultType="com.example.shirojsp01.model.User">
+        SELECT
+            id,
+            username,
+            password,
+            salt
+        FROM
+            shiro.t_user
+        WHERE
+            <if test="userName != '' and userName != null">
+                username = #{userName}
+            </if>
+    </select>
+</mapper>
