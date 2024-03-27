@@ -70,6 +70,15 @@ public class ShiroConfig {
         credentialsMatcher.setHashAlgorithmName("md5");
         credentialsMatcher.setHashIterations(1024);
         customerRealm.setCredentialsMatcher(credentialsMatcher);
+        customerRealm.setCacheManager(new RedisCacheManager());
+        // 开启全局缓存
+        customerRealm.setCachingEnabled(true);
+        // 开启认证缓存
+        customerRealm.setAuthenticationCachingEnabled(true);
+        // 开启授权缓存
+        customerRealm.setAuthenticationCacheName("authenticationCache");
+        customerRealm.setAuthorizationCachingEnabled(true);
+        customerRealm.setAuthorizationCacheName("authorizationCache");
         return customerRealm;
     }
 }

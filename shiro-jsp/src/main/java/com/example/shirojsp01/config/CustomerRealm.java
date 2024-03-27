@@ -6,6 +6,7 @@ import com.example.shirojsp01.model.User;
 import com.example.shirojsp01.service.PermsService;
 import com.example.shirojsp01.service.RoleService;
 import com.example.shirojsp01.service.UserService;
+import com.example.shirojsp01.utils.MySimpleByteSource;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -80,6 +81,6 @@ public class CustomerRealm extends AuthorizingRealm {
         if (ObjectUtils.isEmpty(user)) {
             throw new AuthenticationException("账号不存在");
         }
-        return new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getSalt()), this.getName());
+        return new SimpleAuthenticationInfo(user, user.getPassword(), new MySimpleByteSource(user.getSalt()), this.getName());
     }
 }
