@@ -25,6 +25,7 @@ public class RedisCache<k, v> implements Cache<k, v> {
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(stringRedisSerializer);
         redisTemplate.setHashKeySerializer(stringRedisSerializer);
+        redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
 
